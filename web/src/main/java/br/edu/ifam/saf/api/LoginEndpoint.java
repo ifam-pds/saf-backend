@@ -1,0 +1,95 @@
+package br.edu.ifam.saf.api;
+
+import br.edu.ifam.saf.api.data.ErrorMessageResponse;
+import br.edu.ifam.saf.api.data.LoginData;
+import br.edu.ifam.saf.api.dto.UsuarioDTO;
+import br.edu.ifam.saf.api.dto.UsuarioTransformer;
+import br.edu.ifam.saf.api.util.Responses;
+import br.edu.ifam.saf.api.util.Validation;
+import br.edu.ifam.saf.dao.UsuarioDAO;
+import br.edu.ifam.saf.exception.ValidacaoError;
+import br.edu.ifam.saf.modelo.Usuario;
+import br.edu.ifam.saf.util.SegurancaUtil;
+import org.apache.commons.lang3.StringUtils;
+
+import javax.ejb.Stateless;
+import javax.inject.Inject;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+@Path("/login")
+@Stateless
+public class LoginEndpoint {
+
+    @Inject
+    private UsuarioDAO usuarioDAO;
+
+    @Inject
+    private UsuarioTransformer usuarioTransformer;
+
+
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/")
+    public Response login(LoginData loginData) {
+        try {
+            Validation.validaLogin(loginData);
+
+            Usuario usuario = usuarioDAO.consultarPorEmail(loginData.getEmail());
+
+
+            if (usuario == null || !SegurancaUtil.verificaSenha(loginData.getSenha(), usuario.getSenha())) {
+                return Responses.EMAIL_OU_SENHA_INCORRETOS;
+            }
+            if (StringUtils.isBlank(usuario.getToken())) {
+                usuario.setToken(SegurancaUtil.gerarToken());
+            }
+
+            return Responses.ok(usuarioTransformer.toDTO(usuario));
+
+        } catch (ValidacaoError ex) {
+            return Responses.badRequest(new ErrorMessageResponse(ex.getMessage()));
+        }
+
+    }
+
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/cadastrar")
+    public Response cadastrar(UsuarioDTO usuarioDTO) {
+        try {
+            Validation.validaRegistroUsuario(usuarioDTO);
+
+            Usuario usuarioExistente = usuarioDAO.consultarPorEmail(usuarioDTO.getEmail());
+
+
+            if (usuarioExistente != null) {
+                return Responses.USUARIO_JA_EXISTE;
+            }
+
+            Usuario usuarioACadastrar = usuarioTransformer.toEntity(usuarioDTO);
+
+            usuarioACadastrar.setEmail(usuarioDTO.getEmail());
+
+            usuarioACadastrar.setSenha(SegurancaUtil.hashSenha(usuarioACadastrar.getSenha()));
+
+            try {
+                usuarioDAO.inserir(usuarioACadastrar);
+                return Responses.created();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                return Responses.ERRO_INTERNO;
+            }
+
+        } catch (ValidacaoError ex) {
+            return Responses.badRequest(ex.getErrorMessageResponse());
+        }
+
+    }
+}
