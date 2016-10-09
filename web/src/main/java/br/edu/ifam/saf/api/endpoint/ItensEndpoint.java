@@ -3,9 +3,7 @@ package br.edu.ifam.saf.api.endpoint;
 
 import br.edu.ifam.saf.api.data.ItensResponse;
 import br.edu.ifam.saf.api.dto.ItemTransformer;
-import br.edu.ifam.saf.api.interceptor.RequerLogin;
 import br.edu.ifam.saf.modelo.Item;
-import br.edu.ifam.saf.modelo.Perfil;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -25,7 +23,6 @@ public class ItensEndpoint {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/")
-    @RequerLogin(Perfil.CLIENTE)
     public Response itens() {
         return Response.ok().entity(new ItensResponse(
                 itemTransformer.toDTO(new Item("Jet Ski", 20.0)),

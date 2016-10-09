@@ -2,9 +2,9 @@ package br.edu.ifam.saf.api.dto;
 
 import br.edu.ifam.saf.modelo.Item;
 
-import javax.inject.Singleton;
+import javax.enterprise.context.ApplicationScoped;
 
-@Singleton
+@ApplicationScoped
 public class ItemTransformer implements DTOTransformer<Item, ItemDTO> {
 
     @Override

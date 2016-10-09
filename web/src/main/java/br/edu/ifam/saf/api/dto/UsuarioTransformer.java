@@ -2,10 +2,10 @@ package br.edu.ifam.saf.api.dto;
 
 import br.edu.ifam.saf.modelo.Usuario;
 
-import javax.inject.Singleton;
+import javax.enterprise.context.ApplicationScoped;
 
 
-@Singleton
+@ApplicationScoped
 public class UsuarioTransformer implements DTOTransformer<Usuario, UsuarioDTO> {
 
     @Override
