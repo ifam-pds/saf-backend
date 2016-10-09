@@ -8,7 +8,13 @@ Colocar na pasta `[RAIZ_JBOSS]/standalone/deployments/`
 
 Pela linha de comando a partir da pasta `[RAIZ_JBOSS]/bin/` executar
 
-`./jboss-cli.sh --connect` ou `jboss-cli.bat --connect`
+```bash
+./jboss-cli.sh --connect
+``` 
+ou 
+```bash
+jboss-cli.bat --connect
+```
 
 Executar o comando abaixo substituindo `<SENHA>` pela senha verdadeira ou omitir caso não haja senha
 
@@ -19,4 +25,6 @@ Executar o comando abaixo substituindo `<SENHA>` pela senha verdadeira ou omitir
 
 A partir da raiz do projeto
 
-```$ mvn install -pl web -am && mvn wildfly:deploy -pl web```
+```bash
+$ mvn install -pl web -am && mvn wildfly:deploy -pl web
+```
