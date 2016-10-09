@@ -2,9 +2,7 @@ package br.edu.ifam.saf.modelo;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "usuario")
@@ -14,9 +12,21 @@ public class Usuario extends EntidadeBase {
     @Column(length = 64)
     private String token;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Perfil perfil;
+
     @JsonIgnore
     @Column(nullable = false, length = 60)
     private String senha;
+
+    public Perfil getPerfil() {
+        return perfil;
+    }
+
+    public void setPerfil(Perfil perfil) {
+        this.perfil = perfil;
+    }
 
     public String getEmail() {
         return email;

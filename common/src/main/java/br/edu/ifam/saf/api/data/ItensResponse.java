@@ -5,14 +5,14 @@ import br.edu.ifam.saf.api.dto.ItemDTO;
 import java.util.Arrays;
 import java.util.List;
 
-public class ItemsResponse {
+public class ItensResponse {
     private List<ItemDTO> items;
 
-    public ItemsResponse(List<ItemDTO> items) {
+    public ItensResponse(List<ItemDTO> items) {
         this.items = items;
     }
 
-    public ItemsResponse(ItemDTO... itens) {
+    public ItensResponse(ItemDTO... itens) {
         this.items = Arrays.asList(itens);
 
     }

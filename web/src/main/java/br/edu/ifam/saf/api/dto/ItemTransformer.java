@@ -10,6 +10,7 @@ public class ItemTransformer implements DTOTransformer<Item, ItemDTO> {
     @Override
     public Item toEntity(ItemDTO dto) {
         final Item item = new Item();
+
         item.setNome(dto.getNome());
         item.setPrecoPorHora(dto.getPrecoPorHora());
 
@@ -19,8 +20,10 @@ public class ItemTransformer implements DTOTransformer<Item, ItemDTO> {
     @Override
     public ItemDTO toDTO(Item entity) {
         final ItemDTO itemDTO = new ItemDTO();
+
         itemDTO.setNome(entity.getNome());
         itemDTO.setPrecoPorHora(entity.getPrecoPorHora());
+
         return itemDTO;
     }
 

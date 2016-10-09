@@ -17,7 +17,6 @@ public class UsuarioDAO {
     private EntityManager em;
     private GenericDAO<Usuario> dao;
 
-    @SuppressWarnings("unused")
     @PostConstruct
     private void init() {
         dao = new GenericDAO<>(em, Usuario.class);
@@ -32,6 +31,17 @@ public class UsuarioDAO {
         } catch (NoResultException ex) {
             return null;
         }
+    }
+
+    public Usuario consultarPorToken(String token) {
+        TypedQuery<Usuario> query = em.createQuery("select u from Usuario u where u.token= :token", Usuario.class);
+        query.setParameter("token", token);
+        try {
+            return query.getSingleResult();
+        } catch (NoResultException ex) {
+            return null;
+        }
+
     }
 
     public void inserir(Usuario entidade) {
@@ -53,4 +63,5 @@ public class UsuarioDAO {
     public Usuario atualizar(Usuario entidade) {
         return dao.atualizar(entidade);
     }
+
 }
