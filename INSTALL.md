@@ -1,5 +1,7 @@
-###Configuração
+##Configuração
 
+###Manual
+#### Requisitos
 Servidor : [Wildfly 10.1.0.Final](http://download.jboss.org/wildfly/10.1.0.Final/wildfly-10.1.0.Final.zip). Baixar e inicializar.
 
 Baixar o [mysql-connector](http://central.maven.org/maven2/mysql/mysql-connector-java/6.0.4/mysql-connector-java-6.0.4.jar)
@@ -21,10 +23,27 @@ Executar o comando abaixo substituindo `<SENHA>` pela senha verdadeira ou omitir
 ```data-source add --name=safDS --driver-name=mysql-connector-java-6.0.4.jar --jta=true --connection-url=jdbc:mysql://localhost:3306/saf --jndi-name=java:jboss/datasources/safDS --user-name=root --password=<SENHA> --max-pool-size=25```
 
 
-###Deploy
+####Deploy
 
 A partir da raiz do projeto
 
 ```bash
-$ mvn install -pl web -am && mvn wildfly:deploy -pl web
+$ ./deploy
 ```
+
+
+ou
+
+## Docker Compose
+
+A partir da raiz do projeto
+
+```bash
+docker-compose up
+```
+E em um novo terminal
+
+```bash
+$ ./deploy.sh
+```
+
