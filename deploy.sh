@@ -1,3 +1,3 @@
 #!/bin/bash
 
-mvn -pl web wildfly:deploy
+mvn install -pl web -am && mvn wildfly:deploy -pl web

@@ -14,6 +14,8 @@ services:
   webapp:
     build:
       context: "./docker-wildfly"
+    depends_on:
+      - db
     environment:
         - MYSQL_URI=db:3306
     ports:
