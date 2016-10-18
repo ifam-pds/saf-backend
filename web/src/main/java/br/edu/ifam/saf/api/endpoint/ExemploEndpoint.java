@@ -6,7 +6,7 @@ import br.edu.ifam.saf.api.dto.ItemTransformer;
 import br.edu.ifam.saf.api.dto.UsuarioTransformer;
 import br.edu.ifam.saf.api.interceptor.RequerLogin;
 import br.edu.ifam.saf.api.interceptor.UsuarioAutenticado;
-import br.edu.ifam.saf.modelo.Equipamento;
+import br.edu.ifam.saf.modelo.Item;
 import br.edu.ifam.saf.modelo.Perfil;
 import br.edu.ifam.saf.modelo.Usuario;
 
@@ -37,7 +37,7 @@ public class ExemploEndpoint {
     @RequerLogin
     @Produces(MediaType.APPLICATION_JSON)
     public Response exemploLogado() {
-        return Response.ok().entity(new ItensResponse(itemTransformer.toDTO(new Equipamento("Exemplo Logado", 20.0))))
+        return Response.ok().entity(new ItensResponse(itemTransformer.toDTO(new Item("Exemplo Logado", 20.0))))
                 .build();
     }
 
@@ -45,7 +45,7 @@ public class ExemploEndpoint {
     @Path("")
     @Produces(MediaType.APPLICATION_JSON)
     public Response semLogin() {
-        return Response.ok().entity(new ItensResponse(itemTransformer.toDTO(new Equipamento("Exemplo Não Logado", 20.0))))
+        return Response.ok().entity(new ItensResponse(itemTransformer.toDTO(new Item("Exemplo Não Logado", 20.0))))
                 .build();
     }
 
@@ -54,7 +54,7 @@ public class ExemploEndpoint {
     @RequerLogin(Perfil.ADMINISTRADOR)
     @Produces(MediaType.APPLICATION_JSON)
     public Response exemploLogadoPerfil() {
-        return Response.ok().entity(new ItensResponse(itemTransformer.toDTO(new Equipamento("Exemplo Logado", 20.0))))
+        return Response.ok().entity(new ItensResponse(itemTransformer.toDTO(new Item("Exemplo Logado", 20.0))))
                 .build();
     }
 

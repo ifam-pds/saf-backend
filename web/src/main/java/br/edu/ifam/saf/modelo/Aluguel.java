@@ -5,9 +5,9 @@
  */
 package br.edu.ifam.saf.modelo;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
-import javax.persistence.*;
 
 /**
  *
@@ -28,7 +28,7 @@ public class Aluguel implements Serializable {
     @ManyToOne
     private Usuario funcionario_codigo;
     @ManyToOne
-    private Equipamento equipamento_codigo;
+    private Item item_codigo;
     
     @Column(nullable = false)
     private Timestamp dataInicio;
@@ -67,12 +67,12 @@ public class Aluguel implements Serializable {
         this.funcionario_codigo = funcionario_codigo;
     }
 
-    public Equipamento getEquipamento_codigo() {
-        return equipamento_codigo;
+    public Item getItem_codigo() {
+        return item_codigo;
     }
 
-    public void setEquipamento_codigo(Equipamento equipamento_codigo) {
-        this.equipamento_codigo = equipamento_codigo;
+    public void setItem_codigo(Item item_codigo) {
+        this.item_codigo = item_codigo;
     }
 
     public Timestamp getDataInicio() {
@@ -107,10 +107,7 @@ public class Aluguel implements Serializable {
             return false;
         }
         Aluguel other = (Aluguel) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+        return !((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)));
     }
 
     @Override

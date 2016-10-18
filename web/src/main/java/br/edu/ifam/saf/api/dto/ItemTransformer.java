@@ -1,15 +1,15 @@
 package br.edu.ifam.saf.api.dto;
 
-import br.edu.ifam.saf.modelo.Equipamento;
+import br.edu.ifam.saf.modelo.Item;
 
 import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
-public class ItemTransformer implements DTOTransformer<Equipamento, ItemDTO> {
+public class ItemTransformer implements DTOTransformer<Item, ItemDTO> {
 
     @Override
-    public Equipamento toEntity(ItemDTO dto) {
-        final Equipamento item = new Equipamento();
+    public Item toEntity(ItemDTO dto) {
+        final Item item = new Item();
 
         item.setNome(dto.getNome());
         item.setValor(dto.getValor());
@@ -18,7 +18,7 @@ public class ItemTransformer implements DTOTransformer<Equipamento, ItemDTO> {
     }
 
     @Override
-    public ItemDTO toDTO(Equipamento entity) {
+    public ItemDTO toDTO(Item entity) {
         final ItemDTO itemDTO = new ItemDTO();
 
         itemDTO.setNome(entity.getNome());
