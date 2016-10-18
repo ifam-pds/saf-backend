@@ -1,33 +1,32 @@
 package br.edu.ifam.saf.modelo;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import java.io.Serializable;
-
-/**
- *
- * @author erick.araujo
- */
+import javax.persistence.Table;
 
 @Entity
-public class Item extends EntidadeBase implements Serializable {
-    private static final long serialVersionUID = 1L;
-    
+@Table(name = "item")
+public class Item extends EntidadeBase {
+    @Column(nullable = false)
     private String nome;
-    private Integer quantidade;
+    @Column(nullable = false, length = 512)
     private String descricao;
-    private Boolean status;
-    private Double valor;
-    
+    private String marca;
+    private String modelo;
+
+    @Column(nullable = false)
+    private Double precoPorHora;
+
     @ManyToOne
-    private Categoria categoria_codigo;
+    private Categoria categoria;
 
     public Item() {
     }
 
-    public Item(String nome, Double valor) {
+    public Item(String nome, Double precoPorHora) {
         this.nome = nome;
-        this.valor = valor;
+        this.precoPorHora = precoPorHora;
     }
 
     public String getNome() {
@@ -38,22 +37,6 @@ public class Item extends EntidadeBase implements Serializable {
         this.nome = nome;
     }
 
-    public Double getValor() {
-        return valor;
-    }
-
-    public void setValor(Double valor) {
-        this.valor = valor;
-    }
-
-    public Integer getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade(Integer quantidade) {
-        this.quantidade = quantidade;
-    }
-
     public String getDescricao() {
         return descricao;
     }
@@ -62,42 +45,64 @@ public class Item extends EntidadeBase implements Serializable {
         this.descricao = descricao;
     }
 
-    public Boolean getStatus() {
-        return status;
+    public String getMarca() {
+        return marca;
     }
 
-    public void setStatus(Boolean status) {
-        this.status = status;
+    public void setMarca(String marca) {
+        this.marca = marca;
     }
 
-    public Categoria getCategoria_codigo() {
-        return categoria_codigo;
+    public String getModelo() {
+        return modelo;
     }
 
-    public void setCategoria_codigo(Categoria categoria_codigo) {
-        this.categoria_codigo = categoria_codigo;
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
     }
-    
+
+    public Double getPrecoPorHora() {
+        return precoPorHora;
+    }
+
+    public void setPrecoPorHora(Double precoPorHora) {
+        this.precoPorHora = precoPorHora;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        Item item = (Item) o;
+
+        if (nome != null ? !nome.equals(item.nome) : item.nome != null) return false;
+        if (descricao != null ? !descricao.equals(item.descricao) : item.descricao != null) return false;
+        if (marca != null ? !marca.equals(item.marca) : item.marca != null) return false;
+        if (modelo != null ? !modelo.equals(item.modelo) : item.modelo != null) return false;
+        if (precoPorHora != null ? !precoPorHora.equals(item.precoPorHora) : item.precoPorHora != null) return false;
+        return categoria != null ? categoria.equals(item.categoria) : item.categoria == null;
+
+    }
+
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (nome != null ? nome.hashCode() : 0);
-        return hash;
+        int result = super.hashCode();
+        result = 31 * result + (nome != null ? nome.hashCode() : 0);
+        result = 31 * result + (descricao != null ? descricao.hashCode() : 0);
+        result = 31 * result + (marca != null ? marca.hashCode() : 0);
+        result = 31 * result + (modelo != null ? modelo.hashCode() : 0);
+        result = 31 * result + (precoPorHora != null ? precoPorHora.hashCode() : 0);
+        result = 31 * result + (categoria != null ? categoria.hashCode() : 0);
+        return result;
     }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Item)) {
-            return false;
-        }
-        Item other = (Item) object;
-        return !((this.nome == null && other.nome != null) || (this.nome != null && !this.nome.equals(other.nome)));
-    }
-
-    @Override
-    public String toString() {
-        return "br.edu.ifam.saf.modelo.Categoria[ nome=" + nome + " ]";
-    }
-    
 }

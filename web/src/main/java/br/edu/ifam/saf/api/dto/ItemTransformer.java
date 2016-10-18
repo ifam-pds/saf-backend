@@ -12,7 +12,7 @@ public class ItemTransformer implements DTOTransformer<Item, ItemDTO> {
         final Item item = new Item();
 
         item.setNome(dto.getNome());
-        item.setValor(dto.getValor());
+        item.setPrecoPorHora(dto.getPrecoPorHora());
 
         return item;
     }
@@ -22,7 +22,7 @@ public class ItemTransformer implements DTOTransformer<Item, ItemDTO> {
         final ItemDTO itemDTO = new ItemDTO();
 
         itemDTO.setNome(entity.getNome());
-        itemDTO.setValor(entity.getValor());
+        itemDTO.setPrecoPorHora(entity.getPrecoPorHora());
 
         return itemDTO;
     }

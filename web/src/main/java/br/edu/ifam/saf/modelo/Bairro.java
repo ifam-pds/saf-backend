@@ -1,28 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.edu.ifam.saf.modelo;
 
-import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-/**
- *
- * @author erick.araujo
- */
 @Entity
-public class Bairro extends EntidadeBase implements Serializable {
+@Table(name = "bairro")
+public class Bairro extends EntidadeBase {
 
-    private static final long serialVersionUID = 1L;
+    @Column(nullable = false)
     private String nome;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Cidade cidade;
 
     public Cidade getCidade() {
@@ -32,7 +22,7 @@ public class Bairro extends EntidadeBase implements Serializable {
     public void setCidade(Cidade cidade) {
         this.cidade = cidade;
     }
-    
+
     public String getNome() {
         return nome;
     }
@@ -40,30 +30,33 @@ public class Bairro extends EntidadeBase implements Serializable {
     public void setNome(String nome) {
         this.nome = nome;
     }
-    
+
     @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (nome != null ? nome.hashCode() : 0);
-        return hash;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        Bairro bairro = (Bairro) o;
+
+        if (nome != null ? !nome.equals(bairro.nome) : bairro.nome != null) return false;
+        return cidade != null ? cidade.equals(bairro.cidade) : bairro.cidade == null;
+
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Bairro)) {
-            return false;
-        }
-        Bairro other = (Bairro) object;
-        if ((this.nome == null && other.nome != null) || (this.nome != null && !this.nome.equals(other.nome))) {
-            return false;
-        }
-        return true;
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (nome != null ? nome.hashCode() : 0);
+        result = 31 * result + (cidade != null ? cidade.hashCode() : 0);
+        return result;
     }
 
     @Override
     public String toString() {
-        return "br.edu.ifam.saf.modelo.Bairro[ nome=" + nome + " ]";
+        return "Bairro{" +
+                "nome='" + nome + '\'' +
+                ", cidade=" + cidade +
+                '}';
     }
-    
 }

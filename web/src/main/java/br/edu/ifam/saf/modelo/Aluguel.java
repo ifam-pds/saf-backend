@@ -1,118 +1,131 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.edu.ifam.saf.modelo;
 
+import com.google.common.base.Preconditions;
+
 import javax.persistence.*;
-import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.List;
 
-/**
- *
- * @author erick.araujo
- */
 @Entity
-public class Aluguel implements Serializable {
+@Table(name = "aluguel")
+public class Aluguel extends EntidadeBase {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
+    @ManyToOne(optional = false)
+    private Usuario cliente;
+
     @ManyToOne
-    private Usuario cliente_codigo;
-    @ManyToOne
-    private Usuario cliente_cpf;
-    @ManyToOne
-    private Usuario funcionario_codigo;
-    @ManyToOne
-    private Item item_codigo;
-    
+    private Usuario funcionario;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "aluguel", orphanRemoval = true)
+    private List<ItemAluguel> itens = new ArrayList<>();
+
+
     @Column(nullable = false)
-    private Timestamp dataInicio;
-    @Column(nullable = true)
-    private Timestamp dataDevolucao;
-    
-    public Long getId() {
-        return id;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Calendar dataHoraInicio;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
+    private Calendar dataHoraDevolucao;
+
+    @Enumerated(EnumType.STRING)
+    private StatusAluguel status;
+
+    public Usuario getCliente() {
+        return cliente;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setCliente(Usuario cliente) {
+        this.cliente = cliente;
     }
 
-    public Usuario getCliente_codigo() {
-        return cliente_codigo;
+    public Usuario getFuncionario() {
+        return funcionario;
     }
 
-    public void setCliente_codigo(Usuario cliente_codigo) {
-        this.cliente_codigo = cliente_codigo;
+    public void setFuncionario(Usuario funcionario) {
+        this.funcionario = funcionario;
     }
 
-    public Usuario getCliente_cpf() {
-        return cliente_cpf;
+    public List<ItemAluguel> getItens() {
+        return Collections.unmodifiableList(itens);
     }
 
-    public void setCliente_cpf(Usuario cliente_cpf) {
-        this.cliente_cpf = cliente_cpf;
+    public void setItens(List<ItemAluguel> itens) {
+        Preconditions.checkNotNull(itens, "lista de itens não deve ser nula");
+        this.itens = itens;
+        for (ItemAluguel item : itens) {
+            item.setAluguel(this);
+        }
     }
 
-    public Usuario getFuncionario_codigo() {
-        return funcionario_codigo;
+    public Calendar getDataHoraInicio() {
+        return dataHoraInicio;
     }
 
-    public void setFuncionario_codigo(Usuario funcionario_codigo) {
-        this.funcionario_codigo = funcionario_codigo;
+    public void setDataHoraInicio(Calendar dataHoraInicio) {
+        this.dataHoraInicio = dataHoraInicio;
     }
 
-    public Item getItem_codigo() {
-        return item_codigo;
+    public Calendar getDataHoraDevolucao() {
+        return dataHoraDevolucao;
     }
 
-    public void setItem_codigo(Item item_codigo) {
-        this.item_codigo = item_codigo;
+    public void setDataHoraDevolucao(Calendar dataHoraDevolucao) {
+        this.dataHoraDevolucao = dataHoraDevolucao;
     }
 
-    public Timestamp getDataInicio() {
-        return dataInicio;
+    public void adicionarItem(ItemAluguel itemAluguel) {
+        Preconditions.checkNotNull(itemAluguel, "itemAluguel não deve ser nulo");
+        Preconditions.checkNotNull(itemAluguel.getItem(), "itemAluguel.item não deve ser nulo");
+
+        if (!itens.contains(itemAluguel)) {
+            itens.add(itemAluguel);
+        }
+
+        if (!this.equals(itemAluguel.getAluguel())) {
+            itemAluguel.setAluguel(this);
+        }
     }
 
-    public void setDataInicio(Timestamp dataInicio) {
-        this.dataInicio = dataInicio;
+
+    public StatusAluguel getStatus() {
+        return status;
     }
 
-    public Timestamp getDataDevolucao() {
-        return dataDevolucao;
+    public void setStatus(StatusAluguel status) {
+        this.status = status;
     }
 
-    public void setDataDevolucao(Timestamp dataDevolucao) {
-        this.dataDevolucao = dataDevolucao;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        Aluguel aluguel = (Aluguel) o;
+
+        if (cliente != null ? !cliente.equals(aluguel.cliente) : aluguel.cliente != null) return false;
+        if (funcionario != null ? !funcionario.equals(aluguel.funcionario) : aluguel.funcionario != null) return false;
+        if (dataHoraInicio != null ? !dataHoraInicio.equals(aluguel.dataHoraInicio) : aluguel.dataHoraInicio != null)
+            return false;
+        if (dataHoraDevolucao != null ? !dataHoraDevolucao.equals(aluguel.dataHoraDevolucao) : aluguel.dataHoraDevolucao != null)
+            return false;
+        return status == aluguel.status;
+
     }
-    
-    
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+        int result = super.hashCode();
+        result = 31 * result + (cliente != null ? cliente.hashCode() : 0);
+        result = 31 * result + (funcionario != null ? funcionario.hashCode() : 0);
+        result = 31 * result + (dataHoraInicio != null ? dataHoraInicio.hashCode() : 0);
+        result = 31 * result + (dataHoraDevolucao != null ? dataHoraDevolucao.hashCode() : 0);
+        result = 31 * result + (status != null ? status.hashCode() : 0);
+        return result;
     }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Aluguel)) {
-            return false;
-        }
-        Aluguel other = (Aluguel) object;
-        return !((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)));
-    }
-
-    @Override
-    public String toString() {
-        return "br.edu.ifam.saf.modelo.Aluguel[ id=" + id + " ]";
-    }
-    
 }
+

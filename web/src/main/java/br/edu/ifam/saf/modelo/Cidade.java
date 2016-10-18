@@ -1,31 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.edu.ifam.saf.modelo;
 
-import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.Table;
 
-/**
- *
- * @author erick.araujo
- */
 @Entity
-public class Cidade extends EntidadeBase implements Serializable {
+@Table(name = "cidade")
+public class Cidade extends EntidadeBase {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Short id;
-    
+
+    @Column(nullable = false)
     private String nome;
+    @Column(nullable = false)
     private String estado;
-    private String pais;
 
     public String getNome() {
         return nome;
@@ -43,37 +30,25 @@ public class Cidade extends EntidadeBase implements Serializable {
         this.estado = estado;
     }
 
-    public String getPais() {
-        return pais;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        Cidade cidade = (Cidade) o;
+
+        if (nome != null ? !nome.equals(cidade.nome) : cidade.nome != null) return false;
+        return estado != null ? estado.equals(cidade.estado) : cidade.estado == null;
+
     }
 
-    public void setPais(String pais) {
-        this.pais = pais;
-    }
-    
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (nome != null ? nome.hashCode() : 0);
-        return hash;
+        int result = super.hashCode();
+        result = 31 * result + (nome != null ? nome.hashCode() : 0);
+        result = 31 * result + (estado != null ? estado.hashCode() : 0);
+        return result;
     }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Cidade)) {
-            return false;
-        }
-        Cidade other = (Cidade) object;
-        if ((this.nome == null && other.nome != null) || (this.nome != null && !this.nome.equals(other.nome))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "br.edu.ifam.saf.modelo.Cidade[ nome=" + nome + " ]";
-    }
-    
 }

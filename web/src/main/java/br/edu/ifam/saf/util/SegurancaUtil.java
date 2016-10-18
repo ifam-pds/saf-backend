@@ -16,7 +16,6 @@ public class SegurancaUtil {
 
     public static String hashSenha(String senhaPlaintext) {
         String gensalt = BCrypt.gensalt(NUMERO_RODADAS);
-        System.out.println("salt: " + gensalt);
         return BCrypt.hashpw(senhaPlaintext, gensalt);
     }
 
@@ -29,16 +28,6 @@ public class SegurancaUtil {
         }
 
         return BCrypt.checkpw(senhaPlaintext, hashSenha);
-    }
-
-
-    public static void main(String[] args) {
-
-        String hash = hashSenha("123456");
-        System.out.println("Test computed hash: " + hash);
-        System.out.println("Mesma senha: " + verificaSenha("123456", hash));
-
-
     }
 
     public static String gerarToken() {
