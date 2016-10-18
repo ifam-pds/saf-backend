@@ -2,7 +2,7 @@ package br.edu.ifam.saf.api.dto;
 
 public class ItemDTO {
     private String nome;
-    private Double precoPorHora;
+    private Double valor;
 
     public String getNome() {
         return nome;
@@ -12,11 +12,11 @@ public class ItemDTO {
         this.nome = nome;
     }
 
-    public Double getPrecoPorHora() {
-        return precoPorHora;
+    public Double getValor() {
+        return valor;
     }
 
-    public void setPrecoPorHora(Double precoPorHora) {
-        this.precoPorHora = precoPorHora;
+    public void setValor(Double valor) {
+        this.valor = valor;
     }
 }
