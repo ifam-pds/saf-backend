@@ -7,11 +7,12 @@ import br.edu.ifam.saf.api.dto.UsuarioTransformer;
 import br.edu.ifam.saf.api.util.Respostas;
 import br.edu.ifam.saf.api.util.Validation;
 import br.edu.ifam.saf.dao.UsuarioDAO;
+import br.edu.ifam.saf.enums.Perfil;
 import br.edu.ifam.saf.exception.ValidacaoError;
-import br.edu.ifam.saf.modelo.Perfil;
 import br.edu.ifam.saf.modelo.Usuario;
 import br.edu.ifam.saf.util.SegurancaUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -31,6 +32,9 @@ public class UsuarioEndpoint {
 
     @Inject
     private UsuarioTransformer usuarioTransformer;
+
+    @Inject
+    private Logger log;
 
 
     @POST
@@ -75,10 +79,14 @@ public class UsuarioEndpoint {
             }
 
             Usuario usuarioACadastrar = usuarioTransformer.toEntity(usuarioDTO);
+            usuarioACadastrar.setId(null);
+            usuarioACadastrar.setToken(null);
             usuarioACadastrar.setPerfil(Perfil.CLIENTE);
             usuarioACadastrar.setSenha(SegurancaUtil.hashSenha(usuarioACadastrar.getSenha()));
 
-            usuarioDAO.inserir(usuarioACadastrar);
+            usuarioDAO.atualizar(usuarioACadastrar);
+
+            log.info(">>>" + usuarioACadastrar);
 
             return Respostas.criado();
 

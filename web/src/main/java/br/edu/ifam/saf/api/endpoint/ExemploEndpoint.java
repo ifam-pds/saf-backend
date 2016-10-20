@@ -6,8 +6,8 @@ import br.edu.ifam.saf.api.dto.ItemTransformer;
 import br.edu.ifam.saf.api.dto.UsuarioTransformer;
 import br.edu.ifam.saf.api.interceptor.RequerLogin;
 import br.edu.ifam.saf.api.interceptor.UsuarioAutenticado;
+import br.edu.ifam.saf.enums.Perfil;
 import br.edu.ifam.saf.modelo.Item;
-import br.edu.ifam.saf.modelo.Perfil;
 import br.edu.ifam.saf.modelo.Usuario;
 
 import javax.ejb.Stateless;

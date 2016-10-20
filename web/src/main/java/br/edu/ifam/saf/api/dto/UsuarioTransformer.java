@@ -3,28 +3,51 @@ package br.edu.ifam.saf.api.dto;
 import br.edu.ifam.saf.modelo.Usuario;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 
 
 @ApplicationScoped
 public class UsuarioTransformer implements DTOTransformer<Usuario, UsuarioDTO> {
 
+    @Inject
+    private BairroTransformer bairroTransformer;
+
     @Override
     public Usuario toEntity(UsuarioDTO dto) {
-        final Usuario usuario = new Usuario();
+        return new Usuario.Builder()
+                .id(dto.getId())
+                .email(dto.getEmail())
+                .token(dto.getToken())
+                .cpf(dto.getCpf())
+                .nome(dto.getNome())
+                .cpf(dto.getCpf())
+                .dataNascimento(dto.getDataNascimento())
+                .telefone(dto.getTelefone())
+                .numeroHabilitacao(dto.getNumeroHabilitacao())
+                .perfil(dto.getPerfil())
+                .endereco(dto.getEndereco())
+                .senha(dto.getSenha())
+                .bairro(bairroTransformer.toEntity(dto.getBairro()))
+                .build();
 
-        usuario.setEmail(dto.getEmail());
-        usuario.setSenha(dto.getSenha());
-
-        return usuario;
     }
 
     @Override
     public UsuarioDTO toDTO(Usuario entity) {
-        final UsuarioDTO usuarioDTO = new UsuarioDTO();
 
-        usuarioDTO.setEmail(entity.getEmail());
-        usuarioDTO.setToken(entity.getToken());
-
-        return usuarioDTO;
+        return new UsuarioDTO.Builder()
+                .id(entity.getId())
+                .email(entity.getEmail())
+                .token(entity.getToken())
+                .cpf(entity.getCpf())
+                .nome(entity.getNome())
+                .cpf(entity.getCpf())
+                .dataNascimento(entity.getDataNascimento())
+                .telefone(entity.getTelefone())
+                .numeroHabilitacao(entity.getNumeroHabilitacao())
+                .perfil(entity.getPerfil())
+                .endereco(entity.getEndereco())
+                .bairro(bairroTransformer.toDTO(entity.getBairro()))
+                .build();
     }
 }

@@ -1,5 +1,6 @@
 package br.edu.ifam.saf.modelo;
 
+import br.edu.ifam.saf.enums.StatusAluguel;
 import com.google.common.base.Preconditions;
 
 import javax.persistence.*;

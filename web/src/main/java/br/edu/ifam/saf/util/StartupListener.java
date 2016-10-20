@@ -13,7 +13,6 @@ import javax.servlet.ServletContextListener;
 import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 import java.util.List;
-import java.util.logging.Logger;
 
 public class StartupListener implements ServletContextListener {
 
@@ -49,7 +48,6 @@ public class StartupListener implements ServletContextListener {
                 em.merge(bairro);
 
                 transaction.commit();
-                Logger.getLogger(StartupListener.class.getName()).info("Cidade cadastrada");
             } catch (Throwable e) {
                 try {
                     transaction.rollback();

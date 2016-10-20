@@ -5,5 +5,4 @@ public interface DTOTransformer<E, D> {
     E toEntity(D dto);
 
     D toDTO(E e);
-
 }
