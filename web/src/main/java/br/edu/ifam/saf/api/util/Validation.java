@@ -27,6 +27,10 @@ public final class Validation {
         if (!EmailValidator.getInstance().isValid(usuarioDTO.getEmail())) {
             mensagemErroResponse.getMensagens().add(EMAIL_INVALIDO);
         }
+        if (usuarioDTO.getDataNascimento() == null) {
+            mensagemErroResponse.getMensagens().add("Data de nascimento não informada");
+
+        }
 
         if (StringUtils.isBlank(usuarioDTO.getSenha()) || usuarioDTO.getSenha().length() < 6) {
             mensagemErroResponse.getMensagens().add("A senha deve ter no mínimo 6 caracteres");
