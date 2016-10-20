@@ -11,17 +11,13 @@ import br.edu.ifam.saf.dao.ItemDAO;
 import br.edu.ifam.saf.enums.Perfil;
 import br.edu.ifam.saf.exception.ValidacaoError;
 import br.edu.ifam.saf.modelo.Item;
+import org.slf4j.Logger;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import org.slf4j.Logger;
 
 @Stateless
 @Path("/itens")
@@ -29,10 +25,10 @@ public class ItensEndpoint {
 
     @Inject
     private ItemTransformer itemTransformer;
-    
+
     @Inject
     private ItemDAO dao;
-    
+
     @Inject
     private Logger log;
 
@@ -44,7 +40,7 @@ public class ItensEndpoint {
                 itemTransformer.toDTOList(dao.listarTodos()))
         ).build();
     }
-    
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -74,5 +70,5 @@ public class ItensEndpoint {
         }
 
     }
-    
+
 }

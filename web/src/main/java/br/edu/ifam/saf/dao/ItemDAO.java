@@ -1,43 +1,43 @@
 package br.edu.ifam.saf.dao;
 
 import br.edu.ifam.saf.modelo.Item;
-import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 @Stateless
 public class ItemDAO {
-    private GenericDAO dao;
-    
+
     @PersistenceContext
     EntityManager em;
-    
+
+    private GenericDAO<Item> dao;
+
     @PostConstruct
-    public void init(){
-        dao = new GenericDAO(em, Item.class);
+    public void init() {
+        dao = new GenericDAO<>(em, Item.class);
     }
 
-    public void inserir(Object entidade) {
+    public void inserir(Item entidade) {
         dao.inserir(entidade);
     }
 
-    public Object consultar(Integer id) {
+    public Item consultar(Integer id) {
         return dao.consultar(id);
     }
 
-    public List listarTodos() {
+    public List<Item> listarTodos() {
         return dao.listarTodos();
     }
 
-    public void remover(Object entidade) {
+    public void remover(Item entidade) {
         dao.remover(entidade);
     }
 
-    public Object atualizar(Object entidade) {
+    public Item atualizar(Item entidade) {
         return dao.atualizar(entidade);
     }
-    
-    
 }
