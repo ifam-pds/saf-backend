@@ -2,7 +2,7 @@ package br.edu.ifam.saf.api.dto;
 
 import br.edu.ifam.saf.enums.Perfil;
 
-import java.util.Calendar;
+import java.util.Date;
 
 public class UsuarioDTO {
 
@@ -13,14 +13,14 @@ public class UsuarioDTO {
     private String senha;
     private String nome;
     private String cpf;
-    private Calendar dataNascimento;
+    private Date dataNascimento;
     private String telefone;
     private String numeroHabilitacao;
     private Perfil perfil;
     private String endereco;
     private BairroDTO bairro;
 
-    public UsuarioDTO(Integer id, String email, String token, String senha, String nome, String cpf, Calendar dataNascimento, String telefone, String numeroHabilitacao, Perfil perfil, String endereco, BairroDTO bairro) {
+    public UsuarioDTO(Integer id, String email, String token, String senha, String nome, String cpf, Date dataNascimento, String telefone, String numeroHabilitacao, Perfil perfil, String endereco, BairroDTO bairro) {
         this.id = id;
         this.email = email;
         this.token = token;
@@ -86,11 +86,11 @@ public class UsuarioDTO {
         this.cpf = cpf;
     }
 
-    public Calendar getDataNascimento() {
+    public Date getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(Calendar dataNascimento) {
+    public void setDataNascimento(Date dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 
@@ -141,7 +141,7 @@ public class UsuarioDTO {
         private String senha;
         private String nome;
         private String cpf;
-        private Calendar dataNascimento;
+        private Date dataNascimento;
         private String telefone;
         private String numeroHabilitacao;
         private Perfil perfil;
@@ -178,7 +178,7 @@ public class UsuarioDTO {
             return this;
         }
 
-        public Builder dataNascimento(Calendar dataNascimento) {
+        public Builder dataNascimento(Date dataNascimento) {
             this.dataNascimento = dataNascimento;
             return this;
         }

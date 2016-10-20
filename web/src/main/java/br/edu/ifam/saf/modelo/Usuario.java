@@ -3,7 +3,7 @@ package br.edu.ifam.saf.modelo;
 import br.edu.ifam.saf.enums.Perfil;
 
 import javax.persistence.*;
-import java.util.Calendar;
+import java.util.Date;
 
 @Entity
 @Table(name = "usuario")
@@ -16,7 +16,7 @@ public class Usuario extends EntidadeBase {
     private String cpf;
     @Temporal(TemporalType.DATE)
     @Column(nullable = false)
-    private Calendar dataNascimento;
+    private Date dataNascimento;
     private String telefone;
     private String numeroHabilitacao;
     @Column(nullable = false, unique = true)
@@ -35,7 +35,7 @@ public class Usuario extends EntidadeBase {
     public Usuario() {
     }
 
-    public Usuario(String nome, String cpf, Calendar dataNascimento, String telefone, String numeroHabilitacao, String email, String token, String senha, Perfil perfil, String endereco, Bairro bairro) {
+    public Usuario(String nome, String cpf, Date dataNascimento, String telefone, String numeroHabilitacao, String email, String token, String senha, Perfil perfil, String endereco, Bairro bairro) {
         this.nome = nome;
         this.cpf = cpf;
         this.dataNascimento = dataNascimento;
@@ -65,11 +65,11 @@ public class Usuario extends EntidadeBase {
         this.nome = nome;
     }
 
-    public Calendar getDataNascimento() {
+    public Date getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(Calendar dataNascimento) {
+    public void setDataNascimento(Date dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 
@@ -199,7 +199,7 @@ public class Usuario extends EntidadeBase {
         private Integer id;
         private String nome;
         private String cpf;
-        private Calendar dataNascimento;
+        private Date dataNascimento;
         private String telefone;
         private String numeroHabilitacao;
         private String email;
@@ -225,7 +225,7 @@ public class Usuario extends EntidadeBase {
             return this;
         }
 
-        public Builder dataNascimento(Calendar dataNascimento) {
+        public Builder dataNascimento(Date dataNascimento) {
             this.dataNascimento = dataNascimento;
             return this;
         }

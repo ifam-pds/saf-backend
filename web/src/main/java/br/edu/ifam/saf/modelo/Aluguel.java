@@ -5,7 +5,7 @@ import com.google.common.base.Preconditions;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.Collections;
 import java.util.List;
 
@@ -25,11 +25,11 @@ public class Aluguel extends EntidadeBase {
 
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private Calendar dataHoraInicio;
+    private Date dataHoraInicio;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
-    private Calendar dataHoraDevolucao;
+    private Date dataHoraDevolucao;
 
     @Enumerated(EnumType.STRING)
     private StatusAluguel status;
@@ -62,19 +62,19 @@ public class Aluguel extends EntidadeBase {
         }
     }
 
-    public Calendar getDataHoraInicio() {
+    public Date getDataHoraInicio() {
         return dataHoraInicio;
     }
 
-    public void setDataHoraInicio(Calendar dataHoraInicio) {
+    public void setDataHoraInicio(Date dataHoraInicio) {
         this.dataHoraInicio = dataHoraInicio;
     }
 
-    public Calendar getDataHoraDevolucao() {
+    public Date getDataHoraDevolucao() {
         return dataHoraDevolucao;
     }
 
-    public void setDataHoraDevolucao(Calendar dataHoraDevolucao) {
+    public void setDataHoraDevolucao(Date dataHoraDevolucao) {
         this.dataHoraDevolucao = dataHoraDevolucao;
     }
 
