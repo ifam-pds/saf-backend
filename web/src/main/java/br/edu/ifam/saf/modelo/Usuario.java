@@ -1,5 +1,7 @@
 package br.edu.ifam.saf.modelo;
 
+import br.edu.ifam.saf.enums.Perfil;
+
 import javax.persistence.*;
 import java.util.Calendar;
 
@@ -7,35 +9,45 @@ import java.util.Calendar;
 @Table(name = "usuario")
 public class Usuario extends EntidadeBase {
 
+
     @Column(nullable = false)
     private String nome;
     @Column(nullable = false, unique = true)
     private String cpf;
-
     @Temporal(TemporalType.DATE)
     @Column(nullable = false)
     private Calendar dataNascimento;
-
     private String telefone;
     private String numeroHabilitacao;
-
     @Column(nullable = false, unique = true)
     private String email;
-
     @Column(length = 64)
     private String token;
-
     @Column(nullable = false, length = 60)
     private String senha;
-
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Perfil perfil;
-
     private String endereco;
-
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Bairro bairro;
+
+    public Usuario() {
+    }
+
+    public Usuario(String nome, String cpf, Calendar dataNascimento, String telefone, String numeroHabilitacao, String email, String token, String senha, Perfil perfil, String endereco, Bairro bairro) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.dataNascimento = dataNascimento;
+        this.telefone = telefone;
+        this.numeroHabilitacao = numeroHabilitacao;
+        this.email = email;
+        this.token = token;
+        this.senha = senha;
+        this.perfil = perfil;
+        this.endereco = endereco;
+        this.bairro = bairro;
+    }
 
     public String getCpf() {
         return cpf;
@@ -166,4 +178,101 @@ public class Usuario extends EntidadeBase {
         result = 31 * result + (bairro != null ? bairro.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "nome='" + nome + '\'' +
+                ", cpf='" + cpf + '\'' +
+                ", dataNascimento=" + dataNascimento +
+                ", telefone='" + telefone + '\'' +
+                ", numeroHabilitacao='" + numeroHabilitacao + '\'' +
+                ", email='" + email + '\'' +
+                ", token='" + token + '\'' +
+                ", perfil=" + perfil +
+                ", endereco='" + endereco + '\'' +
+                ", bairro=" + bairro +
+                '}';
+    }
+
+    public static class Builder {
+        private Integer id;
+        private String nome;
+        private String cpf;
+        private Calendar dataNascimento;
+        private String telefone;
+        private String numeroHabilitacao;
+        private String email;
+        private String token;
+        private String senha;
+        private Perfil perfil;
+        private String endereco;
+        private Bairro bairro;
+
+
+        public Builder id(Integer id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder nome(String nome) {
+            this.nome = nome;
+            return this;
+        }
+
+        public Builder cpf(String cpf) {
+            this.cpf = cpf;
+            return this;
+        }
+
+        public Builder dataNascimento(Calendar dataNascimento) {
+            this.dataNascimento = dataNascimento;
+            return this;
+        }
+
+        public Builder telefone(String telefone) {
+            this.telefone = telefone;
+            return this;
+        }
+
+        public Builder numeroHabilitacao(String numeroHabilitacao) {
+            this.numeroHabilitacao = numeroHabilitacao;
+            return this;
+        }
+
+        public Builder email(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public Builder token(String token) {
+            this.token = token;
+            return this;
+        }
+
+        public Builder senha(String senha) {
+            this.senha = senha;
+            return this;
+        }
+
+        public Builder perfil(Perfil perfil) {
+            this.perfil = perfil;
+            return this;
+        }
+
+        public Builder endereco(String endereco) {
+            this.endereco = endereco;
+            return this;
+        }
+
+        public Builder bairro(Bairro bairro) {
+            this.bairro = bairro;
+            return this;
+        }
+
+        public Usuario build() {
+            return new Usuario(nome, cpf, dataNascimento, telefone, numeroHabilitacao, email, token, senha, perfil, endereco, bairro);
+        }
+    }
+
 }

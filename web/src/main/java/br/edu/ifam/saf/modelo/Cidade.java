@@ -51,4 +51,12 @@ public class Cidade extends EntidadeBase {
         result = 31 * result + (estado != null ? estado.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Cidade{" +
+                "nome='" + nome + '\'' +
+                ", estado='" + estado + '\'' +
+                '}';
+    }
 }

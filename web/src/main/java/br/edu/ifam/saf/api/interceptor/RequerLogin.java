@@ -1,7 +1,7 @@
 package br.edu.ifam.saf.api.interceptor;
 
 
-import br.edu.ifam.saf.modelo.Perfil;
+import br.edu.ifam.saf.enums.Perfil;
 
 import javax.ws.rs.NameBinding;
 import java.lang.annotation.ElementType;

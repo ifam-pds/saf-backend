@@ -1,7 +1,7 @@
 package br.edu.ifam.saf.api.interceptor;
 
 import br.edu.ifam.saf.api.data.MensagemErroResponse;
-import br.edu.ifam.saf.modelo.Perfil;
+import br.edu.ifam.saf.enums.Perfil;
 import br.edu.ifam.saf.modelo.Usuario;
 
 import javax.annotation.Priority;
