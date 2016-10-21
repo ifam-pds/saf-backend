@@ -20,7 +20,6 @@ public class UsuarioTransformer implements DTOTransformer<Usuario, UsuarioDTO> {
                 .token(dto.getToken())
                 .cpf(dto.getCpf())
                 .nome(dto.getNome())
-                .cpf(dto.getCpf())
                 .dataNascimento(dto.getDataNascimento())
                 .telefone(dto.getTelefone())
                 .numeroHabilitacao(dto.getNumeroHabilitacao())

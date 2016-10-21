@@ -2,10 +2,13 @@ package br.edu.ifam.saf.api.endpoint;
 
 
 import br.edu.ifam.saf.api.data.ItensResponse;
+import br.edu.ifam.saf.api.data.MensagemErroResponse;
 import br.edu.ifam.saf.api.dto.ItemDTO;
 import br.edu.ifam.saf.api.dto.ItemTransformer;
+import br.edu.ifam.saf.api.interceptor.RequerLogin;
 import br.edu.ifam.saf.api.util.Respostas;
 import br.edu.ifam.saf.dao.ItemDAO;
+import br.edu.ifam.saf.enums.Perfil;
 import br.edu.ifam.saf.exception.ValidacaoError;
 import br.edu.ifam.saf.modelo.Item;
 
@@ -44,6 +47,8 @@ public class ItensEndpoint {
     
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @RequerLogin(Perfil.ADMINISTRADOR)
     @Path("/")
     public Response cadastrar(ItemDTO itemDTO){
         try {
@@ -65,7 +70,7 @@ public class ItensEndpoint {
             return Respostas.badRequest(ex.getMensagemErroResponse());
         } catch (Exception ex) {
             ex.printStackTrace();
-            return Respostas.ERRO_INTERNO;
+            return Respostas.badRequest(new MensagemErroResponse(ex.getMessage()));
         }
 
     }
