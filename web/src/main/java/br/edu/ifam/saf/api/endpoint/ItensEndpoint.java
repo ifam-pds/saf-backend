@@ -6,6 +6,7 @@ import br.edu.ifam.saf.api.data.MensagemErroResponse;
 import br.edu.ifam.saf.api.dto.ItemDTO;
 import br.edu.ifam.saf.api.dto.ItemTransformer;
 import br.edu.ifam.saf.api.interceptor.RequerLogin;
+import br.edu.ifam.saf.api.util.MediaType;
 import br.edu.ifam.saf.api.util.Respostas;
 import br.edu.ifam.saf.dao.ItemDAO;
 import br.edu.ifam.saf.enums.Perfil;
@@ -16,7 +17,6 @@ import org.slf4j.Logger;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Stateless
@@ -33,7 +33,7 @@ public class ItensEndpoint {
     private Logger log;
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON_UTF8)
     @Path("/")
     public Response itens() {
         return Response.ok().entity(new ItensResponse(
@@ -42,8 +42,8 @@ public class ItensEndpoint {
     }
 
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON_UTF8)
+    @Produces(MediaType.APPLICATION_JSON_UTF8)
     @RequerLogin(Perfil.ADMINISTRADOR)
     @Path("/")
     public Response cadastrar(ItemDTO itemDTO){

@@ -6,6 +6,7 @@ import br.edu.ifam.saf.api.dto.ItemTransformer;
 import br.edu.ifam.saf.api.dto.UsuarioTransformer;
 import br.edu.ifam.saf.api.interceptor.RequerLogin;
 import br.edu.ifam.saf.api.interceptor.UsuarioAutenticado;
+import br.edu.ifam.saf.api.util.MediaType;
 import br.edu.ifam.saf.enums.Perfil;
 import br.edu.ifam.saf.modelo.Item;
 import br.edu.ifam.saf.modelo.Usuario;
@@ -15,7 +16,6 @@ import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Path("/exemplo")
@@ -35,7 +35,7 @@ public class ExemploEndpoint {
     @GET
     @Path("/logado")
     @RequerLogin
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON_UTF8)
     public Response exemploLogado() {
         return Response.ok().entity(new ItensResponse(itemTransformer.toDTO(new Item("Exemplo Logado", 20.0))))
                 .build();
@@ -43,7 +43,7 @@ public class ExemploEndpoint {
 
     @GET
     @Path("")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON_UTF8)
     public Response semLogin() {
         return Response.ok().entity(new ItensResponse(itemTransformer.toDTO(new Item("Exemplo Não Logado", 20.0))))
                 .build();
@@ -52,7 +52,7 @@ public class ExemploEndpoint {
     @GET
     @Path("/perfil")
     @RequerLogin(Perfil.ADMINISTRADOR)
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON_UTF8)
     public Response exemploLogadoPerfil() {
         return Response.ok().entity(new ItensResponse(itemTransformer.toDTO(new Item("Exemplo Logado", 20.0))))
                 .build();
@@ -61,7 +61,7 @@ public class ExemploEndpoint {
     @GET
     @RequerLogin
     @Path("/injecao")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON_UTF8)
     public Response exemploUsuarioLogado() {
         return Response.ok().entity(usuarioTransformer.toDTO(usuario)).build();
     }

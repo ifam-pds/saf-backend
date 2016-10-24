@@ -4,6 +4,7 @@ import br.edu.ifam.saf.api.data.LoginData;
 import br.edu.ifam.saf.api.data.MensagemErroResponse;
 import br.edu.ifam.saf.api.dto.UsuarioDTO;
 import br.edu.ifam.saf.api.dto.UsuarioTransformer;
+import br.edu.ifam.saf.api.util.MediaType;
 import br.edu.ifam.saf.api.util.Respostas;
 import br.edu.ifam.saf.api.util.Validation;
 import br.edu.ifam.saf.dao.UsuarioDAO;
@@ -20,7 +21,6 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Path("/usuario")
@@ -38,8 +38,8 @@ public class UsuarioEndpoint {
 
 
     @POST
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON_UTF8)
+    @Consumes(MediaType.APPLICATION_JSON_UTF8)
     @Path("/login")
     public Response login(LoginData loginData) {
         try {
@@ -64,8 +64,8 @@ public class UsuarioEndpoint {
     }
 
     @POST
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON_UTF8)
+    @Consumes(MediaType.APPLICATION_JSON_UTF8)
     @Path("/cadastrar")
     public Response cadastrar(UsuarioDTO usuarioDTO) {
         try {
