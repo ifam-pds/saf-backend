@@ -25,6 +25,8 @@ public class BairroTransformer implements DTOTransformer<Bairro, BairroDTO> {
 
     @Override
     public BairroDTO toDTO(Bairro entity) {
+        if (entity == null) return null;
+
         BairroDTO dto = new BairroDTO();
         dto.setNome(entity.getNome());
         dto.setId(entity.getId());

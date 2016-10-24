@@ -19,6 +19,7 @@ public class CidadeTransformer implements DTOTransformer<Cidade, CidadeDTO> {
 
     @Override
     public CidadeDTO toDTO(Cidade entity) {
+        if (entity == null) return null;
         CidadeDTO dto = new CidadeDTO();
         dto.setId(entity.getId());
         dto.setNome(entity.getNome());

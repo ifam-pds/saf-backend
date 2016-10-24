@@ -15,6 +15,7 @@ import javax.servlet.ServletContextListener;
 import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 import java.util.List;
+import java.util.Random;
 
 public class StartupListener implements ServletContextListener {
 
@@ -62,8 +63,8 @@ public class StartupListener implements ServletContextListener {
             }
         }
     }
-    
-    public void popularCategorias(){
+
+    public void popularCategorias() {
         TypedQuery<Categoria> query = em.createQuery("select c from Categoria c", Categoria.class);
 
         query.setMaxResults(1);
@@ -90,8 +91,8 @@ public class StartupListener implements ServletContextListener {
             }
         }
     }
-    
-    public void popularItens(){
+
+    public void popularItens() {
         TypedQuery<Item> query = em.createQuery("select i from Item i", Item.class);
 
         query.setMaxResults(1);
@@ -99,17 +100,37 @@ public class StartupListener implements ServletContextListener {
 
         if (itens.isEmpty()) {
             UserTransaction transaction = getTransaction();
+
+            Random random = new Random();
+
+            String[] tipos = {"Prancha", "Jetski", "Bóia", "Colete"};
+            String[] marcas = {"Riachuelo", "Renner", "C&A", "Google"};
+            String[] modelos = {"500 cavalos", "350cc"};
+            String[] desc2 = {"O melhor", "O mais usado", "O mais alugado", "O mais vendido"};
+            String[] desc4 = {"do Brasil", "de Manaus", "do Amazonas"};
+
             try {
                 transaction.begin();
-                Item item = new Item();
-                item.setNome("Mormaii 300cc");
-                item.setDescricao("Muito topzera da balada");
-                item.setMarca("Mormaii");
-                item.setModelo("Premium");
-                item.setPrecoPorHora(40.0);
-                item.setCategoria(em.find(Categoria.class, 1));
 
-                em.merge(item);
+                for (int i = 0; i < 15; i++) {
+                    Item item = new Item();
+
+                    String tipo = tipos[Math.abs(random.nextInt() % tipos.length)];
+                    String marca = marcas[Math.abs(random.nextInt() % marcas.length)];
+                    String modelo = modelos[Math.abs(random.nextInt() % modelos.length)];
+
+                    item.setNome(tipo + " " + marca + " " + modelo);
+                    String d1 = desc2[Math.abs(random.nextInt() % desc2.length)];
+                    String d2 = desc4[Math.abs(random.nextInt() % desc4.length)];
+                    item.setDescricao(d1 + " " + d2);
+                    item.setMarca(marca);
+                    item.setModelo(modelo);
+                    item.setPrecoPorHora(10 + (Math.abs(random.nextDouble() * 100)));
+                    item.setCategoria(em.find(Categoria.class, 1));
+
+                    em.merge(item);
+
+                }
 
                 transaction.commit();
             } catch (Throwable e) {
