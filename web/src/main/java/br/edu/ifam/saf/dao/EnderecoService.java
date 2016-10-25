@@ -10,7 +10,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Stateless
-public class BairroDAO {
+public class EnderecoService {
     @PersistenceContext
     private EntityManager em;
     private GenericDAO<Bairro> dao;
@@ -18,10 +18,6 @@ public class BairroDAO {
     @PostConstruct
     private void init() {
         dao = new GenericDAO<>(em, Bairro.class);
-    }
-
-    public void inserir(Bairro entidade) {
-        dao.inserir(entidade);
     }
 
     public Bairro consultar(Integer id) {

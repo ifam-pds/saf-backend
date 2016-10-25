@@ -20,10 +20,6 @@ public class CategoriaDAO {
         dao = new GenericDAO(em,Categoria.class);
     }
 
-    public void inserir(Categoria entidade) {
-        dao.inserir(entidade);
-    }
-
     public Categoria consultar(Integer id) {
         return dao.consultar(id);
     }

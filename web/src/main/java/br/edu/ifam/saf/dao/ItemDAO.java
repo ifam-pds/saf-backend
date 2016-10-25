@@ -21,10 +21,6 @@ public class ItemDAO {
         dao = new GenericDAO<>(em, Item.class);
     }
 
-    public void inserir(Item entidade) {
-        dao.inserir(entidade);
-    }
-
     public Item consultar(Integer id) {
         return dao.consultar(id);
     }
