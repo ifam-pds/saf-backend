@@ -44,10 +44,6 @@ public class UsuarioDAO {
 
     }
 
-    public void inserir(Usuario entidade) {
-        dao.inserir(entidade);
-    }
-
     public Usuario consultar(Integer id) {
         return dao.consultar(id);
     }

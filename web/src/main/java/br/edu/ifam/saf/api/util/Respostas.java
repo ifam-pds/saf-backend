@@ -8,7 +8,7 @@ public final class Respostas {
 
 
     public static final Response EMAIL_OU_SENHA_INCORRETOS = badRequest(new MensagemErroResponse("Email ou senha incorretos"));
-    public static final Response USUARIO_JA_EXISTE = badRequest(new MensagemErroResponse("Usuário já existe"));
+    public static final Response USUARIO_JA_EXISTE = badRequest(new MensagemErroResponse("Usu�rio existe"));
     public static final Response ERRO_INTERNO = Response.serverError().entity(new MensagemErroResponse("Erro interno")).build();
 
     public static Response badRequest(MensagemErroResponse messageData) {

@@ -4,7 +4,7 @@ package br.edu.ifam.saf.api.endpoint;
 import br.edu.ifam.saf.api.data.BairrosResponse;
 import br.edu.ifam.saf.api.dto.BairroTransformer;
 import br.edu.ifam.saf.api.util.MediaType;
-import br.edu.ifam.saf.dao.BairroDAO;
+import br.edu.ifam.saf.dao.EnderecoService;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -21,7 +21,7 @@ public class BairroEndpoint {
     private BairroTransformer bairroTransformer;
 
     @Inject
-    private BairroDAO bairroDAO;
+    private EnderecoService bairroDAO;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON_UTF8)
